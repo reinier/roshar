@@ -1,0 +1,6 @@
+// DMS session spawn. Unlike Azir (which keeps GNOME and deliberately does NOT
+// --global enable DMS as a systemd unit, spawning it from niri instead so it
+// can't leak into the GNOME session), Roshar follows the exact same pattern —
+// this is the single line that makes "DMS runs as the niri session's shell"
+// true at all. Without it, niri would come up with no bar, no launcher.
+spawn-at-startup "dms" "run"

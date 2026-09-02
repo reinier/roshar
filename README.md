@@ -52,7 +52,8 @@ printing, firmware updates, keyring):
   xwayland-satellite for X11 apps.
 - **Browser** — Chromium with full media codecs (Firefox stays too — additive, not a swap).
 - **App store** — [Bazaar](https://github.com/kolunmi/Bazaar), a friendlier Flatpak-focused
-  alternative to GNOME Software.
+  alternative to GNOME Software. Installs itself in the background the first time you log in
+  with a network connection (needs one login or two — it's not baked into the image itself).
 - **CLI tools** — ripgrep, fzf, bat, eza, fastfetch, btop, git; distrobox for ad-hoc tooling.
 - **Flathub** — pre-added as a remote, ready for `flatpak install`.
 

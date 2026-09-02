@@ -38,14 +38,11 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
 
 - [ ] Chromium plays H.264 (a known-codec-gated video site, not just that it launches).
 - [ ] **Bazaar — test on a machine that's already had a Flatpak installed before switching
-      to Roshar, not a pristine install.** `0002` flags a real OSTree gap: baked `/var`
-      content (which is where `flatpak install --system` writes) only seeds an *empty*
-      stateroot `/var` on deployment — `bootc switch` reuses your existing stateroot, so if
-      you'd ever installed so much as one Flatpak via GNOME Software before switching,
-      Roshar's baked Bazaar install may silently never appear. CI staying green does NOT
-      rule this out (the build-time guard only checks the build layer). If Bazaar is
-      missing after switching from an already-used system, that confirms the gap — see
-      `0002` for fallback options.
+      to Roshar, not a pristine install.** This is the exact case that broke the original
+      build-time approach (see `0002`'s history) — now installed at login via `flatpak
+      install --user`, which shouldn't care whether the stateroot's `/var` was already
+      non-empty. Confirm `flatpak list --user` shows it after a login or two (needs
+      network) and that it actually launches.
 - [ ] `flatpak remotes` shows Flathub.
 - [ ] `ripgrep`, `fzf`, `bat`, `eza`, `fastfetch`, `btop`, `git` all present on `$PATH`.
 - [ ] `distrobox create` works.

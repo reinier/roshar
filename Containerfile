@@ -114,13 +114,22 @@ RUN mkdir -p /etc/flatpak/remotes.d \
       https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # --- Bazaar: a friendlier Flatpak app store than GNOME Software ---
-# Flathub-only (no Fedora RPM), so this is a different mechanism than everything else in
-# this file: a build-time system-wide Flatpak install instead of dnf5. Needs the Flathub
-# remote above already in place. This pattern is untested in this project's own
-# Containerfiles before now — if it doesn't work cleanly in CI, this block is the first
-# place to look (see backlog/0002).
-RUN flatpak remote-add --if-not-exists flathub /etc/flatpak/remotes.d/flathub.flatpakrepo \
- && flatpak install --system --noninteractive flathub io.github.kolunmi.Bazaar
+# Flathub-only (no Fedora RPM). NOT installed at build time — an earlier version of this
+# Containerfile did `flatpak install --system` here, but that writes to /var, and OSTree
+# only seeds a commit's baked /var content into an EMPTY stateroot on deployment; `bootc
+# switch` reuses your existing stateroot, so anyone who'd ever installed a single Flatpak
+# before switching to Roshar would silently never get Bazaar that way — a real gap, not a
+# hypothetical one (see backlog/0002's history). Installed instead by an
+# xdg-desktop-autostart entry at login (--user scope, sidesteps /var and the stateroot rule
+# entirely, no root/polkit needed) — same idempotent pattern as the niri config seed above.
+COPY files/roshar-install-bazaar /usr/libexec/roshar-install-bazaar
+COPY files/roshar-install-bazaar.desktop /etc/xdg/autostart/roshar-install-bazaar.desktop
+RUN chmod 0755 /usr/libexec/roshar-install-bazaar; \
+    test -x /usr/libexec/roshar-install-bazaar \
+      || { echo "ERROR: Bazaar-install script missing or not executable" >&2; exit 1; }; \
+    test -f /etc/xdg/autostart/roshar-install-bazaar.desktop \
+      || { echo "ERROR: Bazaar-install autostart entry missing" >&2; exit 1; }; \
+    echo "Bazaar auto-install autostart entry in place"
 
 # --- Dev containers ---
 # distrobox is the ad-hoc CLI-tooling path (no Homebrew). Silverblue ships toolbox + podman
@@ -166,9 +175,7 @@ RUN set -e; \
     rpm -q chromium libavcodec-freeworld ripgrep fzf bat eza fastfetch btop \
            git-core wl-clipboard distrobox >/dev/null; \
     test -s /etc/flatpak/remotes.d/flathub.flatpakrepo || { echo "ERROR: Flathub remote missing" >&2; exit 1; }; \
-    flatpak info --system io.github.kolunmi.Bazaar >/dev/null \
-      || { echo "ERROR: Bazaar not installed" >&2; exit 1; }; \
-    echo "apps OK: chromium $(rpm -q --qf '%{VERSION}' chromium), Bazaar present, CLI tools present"
+    echo "apps OK: chromium $(rpm -q --qf '%{VERSION}' chromium), CLI tools present (Bazaar installs at first login, see above)"
 
 # --- Update policy: manual only ---
 # Two manual streams (bootc + flatpak); nothing updates unattended. Mask both OS auto-update

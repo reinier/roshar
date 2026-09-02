@@ -1,0 +1,32 @@
+#!/bin/sh
+# Roshar: install Bazaar (Flatpak app store) at login if it's not already
+# present, in either scope. Runtime, not build-time -- baking it in during the
+# Containerfile build (`flatpak install --system`) doesn't reliably survive a
+# real `bootc switch`: OSTree only seeds a commit's baked /var content into an
+# EMPTY stateroot on deployment, and `bootc switch` reuses your existing
+# stateroot, so anyone who'd ever installed so much as one Flatpak before
+# switching to Roshar would silently never get Bazaar that way. A --user
+# runtime install sidesteps all of that: no /var, no stateroot-seeding rules,
+# no root/polkit needed either.
+#
+# Not scoped to a session (unlike the niri config seed) -- Bazaar is equally
+# useful from GNOME or Niri, and a fresh Roshar login may well be GNOME first.
+#
+# Idempotent -- exits immediately once Bazaar is present in either scope.
+# Best-effort otherwise: no network on first boot just means it quietly
+# retries on the next login instead of erroring loudly.
+set -u
+
+APP_ID=io.github.kolunmi.Bazaar
+
+if flatpak info --system "$APP_ID" >/dev/null 2>&1 || \
+   flatpak info --user "$APP_ID" >/dev/null 2>&1; then
+    exit 0
+fi
+
+# --if-not-exists: idempotent, and defensive rather than assumed -- the image ships
+# /etc/flatpak/remotes.d/flathub.flatpakrepo (which flatpak normally auto-discovers at the
+# system level, the same way Fedora's own default remote works), but a --user install
+# explicitly registering its own --user-scope remote reference removes any doubt.
+flatpak remote-add --user --if-not-exists flathub /etc/flatpak/remotes.d/flathub.flatpakrepo || true
+flatpak install --user --noninteractive flathub "$APP_ID" || true

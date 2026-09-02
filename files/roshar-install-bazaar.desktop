@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Roshar Bazaar install
+Comment=Installs Bazaar (Flatpak app store) at login if it isn't already present
+Exec=/usr/libexec/roshar-install-bazaar
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+Terminal=false

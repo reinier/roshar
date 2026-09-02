@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Roshar niri config seed
+Comment=Copies the default niri+DMS config into ~/.config/niri on first login, if you haven't already brought your own
+Exec=/usr/libexec/roshar-seed-niri-config
+OnlyShowIn=niri;
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+Terminal=false

@@ -68,19 +68,28 @@ RUN set -e; \
     ! rpm -q sddm >/dev/null 2>&1 || { echo "ERROR: sddm present — GDM should be the only DM" >&2; exit 1; }; \
     echo "session OK: niri + dms + kitty added; GNOME/GDM intact"
 
-# --- Default niri+DMS config, baked in (see backlog/0004) ---
+# --- Default niri+DMS config, baked in + auto-seeded on first login (see backlog/0004) ---
 # `dms setup` (what would normally generate this) is policy-blocked on ostree/atomic, and
 # DMS has no built-in fallback the way some shells do — without a config it simply never
 # spawns. /etc/skel doesn't help here: everyone rebasing onto Roshar already has an existing
-# user account from before the rebase (skel only seeds NEW accounts), so this is baked to a
-# fixed path instead and copied in by the user after first login (see README).
+# user account from before the rebase (skel only seeds NEW accounts). Instead: the config is
+# baked to a fixed path, and an xdg-desktop-autostart entry (niri's own vendored config notes
+# it supports this) copies it into ~/.config/niri on first Niri login, idempotently — gets
+# out of the way immediately if the user already has their own config.kdl.
 COPY files/skel-niri/ /usr/share/roshar/niri-default-config/
-RUN test -f /usr/share/roshar/niri-default-config/config.kdl \
+COPY files/roshar-seed-niri-config /usr/libexec/roshar-seed-niri-config
+COPY files/roshar-seed-niri-config.desktop /etc/xdg/autostart/roshar-seed-niri-config.desktop
+RUN chmod 0755 /usr/libexec/roshar-seed-niri-config; \
+    test -f /usr/share/roshar/niri-default-config/config.kdl \
       || { echo "ERROR: default niri config missing from the image" >&2; exit 1; }; \
     grep -q 'spawn-at-startup "dms" "run"' \
          /usr/share/roshar/niri-default-config/dms/startup.kdl \
       || { echo "ERROR: default config won't actually launch DMS" >&2; exit 1; }; \
-    echo "default niri+DMS config baked at /usr/share/roshar/niri-default-config/"
+    test -x /usr/libexec/roshar-seed-niri-config \
+      || { echo "ERROR: config-seed script missing or not executable" >&2; exit 1; }; \
+    grep -q 'OnlyShowIn=niri;' /etc/xdg/autostart/roshar-seed-niri-config.desktop \
+      || { echo "ERROR: config-seed autostart entry not scoped to the niri session" >&2; exit 1; }; \
+    echo "default niri+DMS config baked + auto-seed autostart entry in place"
 
 # --- Native Chromium + free codecs ---
 # A working-out-of-the-box browser is close to a universal want; Silverblue's stock Firefox

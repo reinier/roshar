@@ -37,19 +37,32 @@ a stock Fedora ISO, get a user account there, **then** `bootc switch`" — the a
 exists before Roshar's image ever lands, so `/etc/skel` would never be consulted. Caught
 during planning, before implementing it the wrong way.
 
-## What ships instead: a documented one-time copy step
+## What ships instead: an xdg-desktop-autostart entry, auto-seeding on first login
 
-README instructs, after first Niri login:
+Originally shipped as a documented manual copy step (simple, honest about the `/etc/skel`
+limitation) — **automated after the fact**, once asked for. niri's own vendored config
+already notes it "supports xdg-desktop-autostart", which is exactly the hook needed:
 
-```sh
-mkdir -p ~/.config/niri
-cp -r /usr/share/roshar/niri-default-config/* ~/.config/niri/
-```
+- `files/roshar-seed-niri-config` — a small idempotent script: if
+  `~/.config/niri/config.kdl` already exists (the user's own, or ours from a prior login),
+  exit immediately; otherwise `cp -rn` the baked tree into `~/.config/niri/`. `-n`
+  (no-clobber) is belt-and-braces in case some but not all files already exist.
+- `files/roshar-seed-niri-config.desktop` → `/etc/xdg/autostart/`, `OnlyShowIn=niri;` so it
+  never runs in the GNOME session, `NoDisplay=true` since it's an implementation detail, not
+  a user-facing app.
+- Build-time guard confirms the script is present + executable and the `.desktop` entry is
+  correctly scoped to niri.
 
-Simple and honest about the `/etc/skel` limitation. A first-boot autostart script that does
-this automatically — niri's own vendored config already notes it "supports
-xdg-desktop-autostart" — is a reasonable follow-up refinement, not required for a first
-working version. Noted as future work, not built here.
+**One real sequencing wrinkle, not fully resolved**: on the very first login, niri starts
+*before* any config exists at all (built-in defaults, no bar) — the autostart entry then
+copies the config in during that same session. Whether niri hot-reloads a `config.kdl` that
+didn't exist when the session started, or needs a fresh login to pick it up, is unconfirmed
+from here — README hedges with "log out and back in once if [it comes up bare]" rather than
+promising it working with zero further action. Worth nailing down on real hardware (see
+`0005`) and tightening the README's wording once known either way.
+
+The manual copy command is kept in the README too, as a documented fallback for
+troubleshooting — not removed, just no longer the primary path.
 
 ## `dank-lader` deliberately not included
 
@@ -60,7 +73,8 @@ powermenu, etc. — already generic as vendored), no leader-menu system assumed.
 
 ## Verification (hardware — see 0005)
 
-Fresh Roshar login → Niri session with the copy step done → DMS bar + launcher work, `Mod+T`
-opens kitty, `Mod+Space` opens the launcher. Without the copy step, niri should still start
-(bare, no bar) rather than fail to launch at all — confirms `optional=true` on `local.kdl`
-didn't accidentally make the whole config fragile.
+Fresh Roshar login → Niri session → determine whether DMS bar/launcher appear in the same
+session the autostart entry runs in, or only after a second login — document whichever it
+turns out to be. Either way, by the second login at the latest: DMS bar + launcher work,
+`Mod+T` opens kitty, `Mod+Space` opens the launcher. Bring-your-own-config case: drop a
+`config.kdl` in first, confirm the autostart entry does nothing and doesn't clobber it.

@@ -4,7 +4,7 @@
 - **Created:** 2026-09-02
 
 CI proves packages resolve and the image lints — not that both sessions come up or DMS
-spawns after the config-copy step, or that Bazaar's build-time Flatpak install actually
+actually gets auto-seeded and spawns, or that Bazaar's build-time Flatpak install actually
 produced a launchable app. Rebase a test machine and work top-to-bottom.
 
 ```sh
@@ -15,17 +15,24 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
 
 - [ ] GDM offers **GNOME** and **Niri**.
 - [ ] **GNOME** session logs in and works normally (additive build didn't disturb it).
-- [ ] **Niri** session logs in. Before the config-copy step: bare niri, no crash (confirms
-      `optional=true "local.kdl"` didn't make the whole config fragile).
-- [ ] Run the config-copy step from the README. Log out, back into Niri: DMS bar + launcher
-      come up. `Mod+T` opens kitty. `Mod+Space` opens the DMS launcher.
+- [ ] **Niri** session logs in for the very first time (no `~/.config/niri/` yet). Note
+      whether DMS is already up in *this* session or it comes up bare — either is
+      acceptable, but which one actually happens needs recording (see `0004`'s open
+      question about hot-reload timing).
+- [ ] `~/.config/niri/config.kdl` exists after that first login, without you touching
+      anything — confirms the autostart entry actually ran.
+- [ ] Log out, back into Niri (if the first login was bare): DMS bar + launcher come up.
+      `Mod+T` opens kitty. `Mod+Space` opens the DMS launcher.
+- [ ] **Bring-your-own-config case**: on a *different* account (or after removing the
+      auto-seeded config and dropping in your own `config.kdl` first), log into Niri and
+      confirm the autostart entry did nothing — no overwrite, no error.
 - [ ] X11 apps run (`pgrep -af xwayland-satellite`).
 
 ## B. Zero-dotfiles claim (the actual point of Roshar)
 
-- [ ] On a machine with **no chezmoi, no `dotfiles-azir`, nothing beyond the README's
-      copy-step** — the niri+DMS session genuinely works. This is the test that actually
-      validates "usable by a wider group of users," not just "boots."
+- [ ] On a machine with **no chezmoi, no `dotfiles-azir`, no manual steps at all** — the
+      niri+DMS session genuinely works after nothing but logging in. This is the test that
+      actually validates "usable by a wider group of users," not just "boots."
 
 ## C. Apps
 

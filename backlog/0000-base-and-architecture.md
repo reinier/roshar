@@ -45,10 +45,11 @@ DMS (unlike Noctalia, which Tashikk uses) has no built-in configuration fallback
 setup path (`dms setup`) is policy-blocked on atomic systems, and without *some* config it
 never even spawns. `/etc/skel` doesn't help here: everyone rebasing onto Roshar already has an
 existing user account from before the rebase (skel only seeds accounts at creation time), so
-the config is instead baked to `/usr/share/roshar/niri-default-config/` and copied in manually
-after first login (see README, and `0004`). The config itself is `dotfiles-azir`'s own
-`config.kdl` + `dms/*.kdl` — verified to already be fully generic (no personal content) since
-it's exactly what `dms setup` would have generated.
+the config is instead baked to `/usr/share/roshar/niri-default-config/` and auto-seeded into
+`~/.config/niri/` on first Niri login via an xdg-desktop-autostart entry (see README, and
+`0004`) — steps aside entirely if the user already has their own config. The config itself is
+`dotfiles-azir`'s own `config.kdl` + `dms/*.kdl` — verified to already be fully generic (no
+personal content) since it's exactly what `dms setup` would have generated.
 
 ## Deferred: Azir rebuilt `FROM roshar`
 

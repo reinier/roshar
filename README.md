@@ -28,19 +28,20 @@ sudo systemctl reboot
 
 At the GDM login screen, use the session picker (gear icon) to choose **GNOME** or **Niri**.
 
-**Important — one manual step after your first Niri login.** DMS (unlike some other
-Quickshell-based shells) has no built-in configuration fallback, and its normal setup command
-(`dms setup`) can't run on an atomic system — so a working config is baked into the image at a
-fixed path instead of your home directory (which already existed before you rebased, so
-`/etc/skel` can't seed it). Copy it in once:
+**First Niri login sets itself up automatically.** DMS (unlike some other Quickshell-based
+shells) has no built-in configuration fallback, and its normal setup command (`dms setup`)
+can't run on an atomic system — so a working config is baked into the image and copied into
+`~/.config/niri/` for you on first login via a niri session autostart entry (your home
+directory already existed before you rebased, so `/etc/skel` can't seed it — this is Roshar's
+own equivalent). It only copies if you don't already have a `~/.config/niri/config.kdl` —
+bring your own and it steps aside entirely. The very first login may come up bare (niri
+starting before the config exists yet); log out and back in once if so, and the bar/launcher
+(`Mod+Space`) should be up. Personal tweaks go in `~/.config/niri/local.kdl` (optional —
+nothing requires it to exist).
 
-```sh
-mkdir -p ~/.config/niri
-cp -r /usr/share/roshar/niri-default-config/* ~/.config/niri/
-```
-
-Then log out and back into the Niri session — the bar and launcher (`Mod+Space`) should be up.
-Personal tweaks go in `~/.config/niri/local.kdl` (optional — nothing requires it to exist).
+If you ever need to do it by hand (e.g. troubleshooting): the same content lives at
+`/usr/share/roshar/niri-default-config/` — `cp -r /usr/share/roshar/niri-default-config/*
+~/.config/niri/`.
 
 ## What you get
 

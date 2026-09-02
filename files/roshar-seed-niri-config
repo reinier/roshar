@@ -1,0 +1,23 @@
+#!/bin/sh
+# Roshar: seed ~/.config/niri with the baked default niri+DMS config on first
+# Niri login, if the user hasn't already brought their own. Idempotent -- runs
+# on every niri login via xdg-desktop-autostart, but every run after the first
+# is a near-instant no-op once config.kdl exists.
+#
+# Why this exists instead of /etc/skel: /etc/skel only seeds a NEW account at
+# creation time, and everyone rebasing onto Roshar already has an existing
+# account from before the switch -- skel is never consulted for them. This
+# autostart entry is the actual first-login hook instead.
+set -eu
+
+DEST="$HOME/.config/niri"
+SRC="/usr/share/roshar/niri-default-config"
+
+# Already configured (by us on a prior login, or by the user themselves) --
+# get out of the way.
+[ -f "$DEST/config.kdl" ] && exit 0
+
+mkdir -p "$DEST"
+# -n (no-clobber): belt-and-braces in case some but not all files already
+# exist (e.g. someone created just a local.kdl without a config.kdl).
+cp -rn "$SRC"/. "$DEST"/

@@ -8,9 +8,10 @@ deliberately deferred — see `azir/backlog/README.md`'s forward-looking note.
 ## The shape (vs Azir)
 
 - **Base:** same additive Silverblue — keep GNOME + GDM, add niri/DMS as a session.
-- **App set:** bare niri+DMS core (kitty, `ddcutil`) + a small "strong candidates" tier
-  (Chromium+codecs, Bazaar, a CLI-tools subset, Flathub, distrobox) — see `0000` for the full
-  include/exclude reasoning. No 1Password, Synology, Tailscale, keyd, or curated CLI toolkit.
+- **App set:** bare niri+DMS core (Ptyxis as the terminal, already in the base, `ddcutil`) +
+  a small "strong candidates" tier (Chromium+codecs, Bazaar, a CLI-tools subset, Flathub,
+  distrobox) — see `0000` for the full include/exclude reasoning. No 1Password, Synology,
+  Tailscale, keyd, or curated CLI toolkit.
 - **Config:** unlike Azir (100% BYO-dotfiles), Roshar **bakes a default niri+DMS config into
   the image** (`0004`) — DMS has no built-in fallback, so without this a fresh rebase would
   show a nearly bare niri session.

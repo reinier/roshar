@@ -19,8 +19,10 @@ Drive, Tailscale, keyd, or curated CLI toolkit.
 Not literally nothing beyond niri+DMS — a small, deliberately reasoned tier of extras that
 are broadly wanted regardless of personal taste, alongside the bare session:
 
-- **Bare session**: niri, DMS, matugen, kitty (default terminal), xwayland-satellite,
-  `ddcutil` (a real DMS feature — `dms doctor`'s I2C/DDC brightness check — dead without it).
+- **Bare session**: niri, DMS, matugen, xwayland-satellite, `ddcutil` (a real DMS feature —
+  `dms doctor`'s I2C/DDC brightness check — dead without it). Terminal: Ptyxis, GNOME's own
+  (already in the base, not installed separately — see `0001`'s 2026-09-03 update; an
+  earlier version used `kitty` before it was clear Ptyxis was sitting right there unused).
 - **Strong candidates**: Chromium + full codecs, Bazaar (Flatpak app store), a handful of
   broadly-popular CLI tools (`ripgrep`/`fzf`/`bat`/`eza`/`fastfetch`/`btop`/`git-core`/
   `wl-clipboard`), Flathub remote, distrobox.

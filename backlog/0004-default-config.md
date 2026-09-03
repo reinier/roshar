@@ -76,5 +76,5 @@ powermenu, etc. — already generic as vendored), no leader-menu system assumed.
 Fresh Roshar login → Niri session → determine whether DMS bar/launcher appear in the same
 session the autostart entry runs in, or only after a second login — document whichever it
 turns out to be. Either way, by the second login at the latest: DMS bar + launcher work,
-`Mod+T` opens kitty, `Mod+Space` opens the launcher. Bring-your-own-config case: drop a
+`Mod+T` opens Ptyxis, `Mod+Space` opens the launcher. Bring-your-own-config case: drop a
 `config.kdl` in first, confirm the autostart entry does nothing and doesn't clobber it.

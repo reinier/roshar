@@ -1,14 +1,17 @@
 // DMS default keybinds (from `dms setup`, vendored). Included by config.kdl
 // BEFORE local.kdl, so any key you rebind in local.kdl wins; keys you don't
 // touch here remain as the DMS default. {{TERMINAL_COMMAND}} was substituted
-// with `kitty`.
+// with Ptyxis (GNOME's own terminal, already in the base) rather than a
+// separately-installed one -- `--new-window` because Ptyxis is a
+// single-instance GApplication; a bare `ptyxis` would just refocus an
+// existing window instead of opening a fresh one.
 binds {
     // === System & Overview ===
     Mod+O repeat=false { toggle-overview; }
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // === Application Launchers ===
-    Mod+T hotkey-overlay-title="Open Terminal" { spawn "kitty"; }
+    Mod+T hotkey-overlay-title="Open Terminal" { spawn "ptyxis" "--new-window"; }
     Mod+Space hotkey-overlay-title="Application Launcher" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";
     }

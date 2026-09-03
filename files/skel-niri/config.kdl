@@ -240,7 +240,7 @@ window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     match app-id="Alacritty"
     match app-id="zen"
-    match app-id="kitty"
+    match app-id="app.devsuite.Ptyxis"
     draw-border-with-background false
 }
 window-rule {

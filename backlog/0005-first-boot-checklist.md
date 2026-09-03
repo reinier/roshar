@@ -22,7 +22,7 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
 - [ ] `~/.config/niri/config.kdl` exists after that first login, without you touching
       anything — confirms the autostart entry actually ran.
 - [ ] Log out, back into Niri (if the first login was bare): DMS bar + launcher come up.
-      `Mod+T` opens kitty. `Mod+Space` opens the DMS launcher.
+      `Mod+T` opens Ptyxis. `Mod+Space` opens the DMS launcher.
 - [ ] **Bring-your-own-config case**: on a *different* account (or after removing the
       auto-seeded config and dropping in your own `config.kdl` first), log into Niri and
       confirm the autostart entry did nothing — no overwrite, no error.

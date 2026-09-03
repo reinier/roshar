@@ -48,8 +48,9 @@ If you ever need to do it by hand (e.g. troubleshooting): the same content lives
 On top of everything Silverblue already provides (GNOME, GDM, GNOME Software, PipeWire,
 printing, firmware updates, keyring):
 
-- **A second desktop** — niri + DankMaterialShell, with the kitty terminal and
-  xwayland-satellite for X11 apps.
+- **A second desktop** — niri + DankMaterialShell, with GNOME's own Ptyxis terminal
+  (already part of the base — no extra terminal package installed) and xwayland-satellite
+  for X11 apps.
 - **Browser** — Chromium with full media codecs (Firefox stays too — additive, not a swap).
 - **App store** — [Bazaar](https://github.com/kolunmi/Bazaar), a friendlier Flatpak-focused
   alternative to GNOME Software. Installs itself in the background the first time you log in

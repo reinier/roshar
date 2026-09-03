@@ -19,8 +19,12 @@ FROM quay.io/fedora-ostree-desktops/silverblue:44
 # don't come along (DMS provides bar/launcher/lock; GNOME provides the rest). niri's wanted
 # recommends (gnome-keyring, wireplumber, portals) are already present from Silverblue.
 # niri has NO built-in Xwayland, so xwayland-satellite drives the base's Xwayland server.
-# kitty is the session's default terminal — Fedora-native (no extra repo needed), matching
-# what the baked niri config's DMS keybinds spawn (Mod+T).
+# No terminal installed here — Ptyxis (GNOME's own, app id app.devsuite.Ptyxis) is already
+# part of the Silverblue base and Roshar never strips it (unlike Azir, which removes it in
+# favor of ghostty), so the niri session's Mod+T just points at what's already there instead
+# of adding a second terminal package. See the baked config's dms/binds.kdl for the exact
+# invocation (`--new-window` needed — Ptyxis is a single-instance GApplication, so a bare
+# `ptyxis` would just refocus an existing window rather than open a fresh one).
 #
 # DMS + quickshell + dms-cli as a MATCHED PAIR from upstream's *stable* COPRs — Fedora's DMS
 # 1.4.4 / quickshell 0.2.1 are too old for DMS 1.5.x. matugen (DMS theming) from Fedora.
@@ -28,7 +32,7 @@ FROM quay.io/fedora-ostree-desktops/silverblue:44
 # brightness control; without it that DMS feature can never activate for anyone.
 COPY files/avengemedia-dms.repo files/avengemedia-danklinux.repo /etc/yum.repos.d/
 RUN dnf5 -y install --setopt=install_weak_deps=False \
-      niri kitty xwayland-satellite ddcutil \
+      niri xwayland-satellite ddcutil \
  && dnf5 -y install dms matugen \
  && rm -f /etc/yum.repos.d/avengemedia-dms.repo \
           /etc/yum.repos.d/avengemedia-danklinux.repo \
@@ -38,8 +42,10 @@ RUN dnf5 -y install --setopt=install_weak_deps=False \
 # `(quickshell or quickshell-git)`, so rpm is equally satisfied by Fedora's much older
 # quickshell — it only resolves to the COPR build because that repo is enabled and dnf takes
 # the highest version. A silently mismatched quickshell crashed the shell on Steen once.
+# Also assert Ptyxis is present (from the base, not installed here) -- if a future Silverblue
+# ever drops it, the niri session's default terminal keybind goes dead silently otherwise.
 RUN set -e; \
-    rpm -q niri kitty xwayland-satellite ddcutil dms dms-cli quickshell matugen >/dev/null; \
+    rpm -q niri xwayland-satellite ddcutil dms dms-cli quickshell matugen ptyxis >/dev/null; \
     ! rpm -q DankMaterialShell >/dev/null 2>&1 \
       || { echo "ERROR: Fedora's DankMaterialShell is installed alongside COPR dms" >&2; exit 1; }; \
     command -v niri >/dev/null || { echo "ERROR: niri binary missing" >&2; exit 1; }; \
@@ -66,7 +72,7 @@ RUN set -e; \
            pipewire wireplumber NetworkManager >/dev/null \
       || { echo "ERROR: GNOME/plumbing was disturbed by the niri layer (should be additive)" >&2; exit 1; }; \
     ! rpm -q sddm >/dev/null 2>&1 || { echo "ERROR: sddm present — GDM should be the only DM" >&2; exit 1; }; \
-    echo "session OK: niri + dms + kitty added; GNOME/GDM intact"
+    echo "session OK: niri + dms added (Ptyxis is the terminal, already in the base); GNOME/GDM intact"
 
 # --- Default niri+DMS config, baked in + auto-seeded on first login (see backlog/0004) ---
 # `dms setup` (what would normally generate this) is policy-blocked on ostree/atomic, and

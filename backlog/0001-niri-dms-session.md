@@ -10,14 +10,19 @@
 ## What
 
 ```
-dnf5 -y install --setopt=install_weak_deps=False niri kitty xwayland-satellite ddcutil
+dnf5 -y install --setopt=install_weak_deps=False niri xwayland-satellite ddcutil
 dnf5 -y install dms matugen
 ```
 
 - **niri weak-deps-off** — niri Recommends waybar/fuzzel/swaylock/alacritty; DMS provides
   the bar/launcher/lock, so those are excluded.
-- **kitty** — the session's default terminal (Fedora-native, no extra repo). The baked
-  config's DMS keybinds (`Mod+T`) already spawn it.
+- **No terminal package installed** — Ptyxis, GNOME's own (`app.devsuite.Ptyxis`), is
+  already part of the Silverblue base and Roshar never strips it (see the lean-out note
+  below), so `Mod+T` just points at what's already there: `spawn "ptyxis" "--new-window";`.
+  **Update (2026-09-03)**: this replaced an earlier version that installed `kitty` — Fedora-
+  native too, but an unnecessary second terminal package once it was clear Ptyxis was sitting
+  right there unused. `--new-window` matters: Ptyxis is a single-instance GApplication, so a
+  bare `ptyxis` would just refocus an existing window instead of opening a fresh one.
 - **DMS + quickshell from avengemedia's *stable* COPR** (matched pair — Fedora's DMS 1.4.4 /
   quickshell 0.2.1 are too old for DMS 1.5.x), with the same **quickshell-provenance guard**
   Azir/Steen use: asserts quickshell actually came from the COPR, not Fedora's older build
@@ -37,8 +42,9 @@ nothing removed).
 ## Lean-out: smaller than Azir's
 
 Azir also strips `firefox`/`ptyxis`/`toolbox` — but only because it replaces them with
-Chromium/ghostty/distrobox respectively. Roshar doesn't replace ptyxis or toolbox with
-anything, so it keeps them. What Roshar does strip is minimization that holds regardless of
+Chromium/ghostty/distrobox respectively. Roshar doesn't replace ptyxis with anything — it
+uses it directly as the niri session's terminal, per the update above — or toolbox, so it
+keeps both. What Roshar does strip is minimization that holds regardless of
 app choice: onboarding tour/help (`gnome-tour`/`gnome-user-docs`/`yelp`), the interactive
 third-party-repo prompt (`fedora-third-party`), hypervisor guest tools (real hardware only),
 pre-2010 wifi firmware, `bluez-cups`, `gamemode`.

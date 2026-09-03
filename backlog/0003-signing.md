@@ -1,6 +1,8 @@
 # Signed update stream
 
-- **Status:** in-progress (policy baked; needs `SIGNING_SECRET` on the roshar repo)
+- **Status:** done — `SIGNING_SECRET` confirmed set on `reinier/roshar` (2026-09-03); a
+  manually-triggered build's push log showed `Creating signature: Signing image using a
+  sigstore signature` + `Storing signatures`, not the unsigned fallback.
 - **Created:** 2026-09-02
 - **Related:** Steen/Tashikk/Azir's own `0001`/signing items (same machinery).
 

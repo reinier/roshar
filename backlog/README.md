@@ -23,8 +23,8 @@ deliberately deferred — see `azir/backlog/README.md`'s forward-looking note.
    why this isn't extracted from existing precedent, the deferred Azir-migration note.
 1. [0001-niri-dms-session.md](0001-niri-dms-session.md) — the bare niri+DMS session itself.
 2. [0002-broad-audience-apps.md](0002-broad-audience-apps.md) — Bazaar, CLI tools.
-3. [0003-signing.md](0003-signing.md) — signed update stream (shared key; needs
-   `SIGNING_SECRET` on the roshar repo).
+3. [0003-signing.md](0003-signing.md) — **done.** Signed update stream (shared key);
+   `SIGNING_SECRET` confirmed set, CI signing since 2026-09-03.
 4. [0004-default-config.md](0004-default-config.md) — the baked niri+DMS config.
 5. [0005-first-boot-checklist.md](0005-first-boot-checklist.md) — living hardware/boot
    verification.

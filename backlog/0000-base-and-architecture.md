@@ -24,8 +24,8 @@ are broadly wanted regardless of personal taste, alongside the bare session:
   (already in the base, not installed separately — see `0001`'s 2026-09-03 update; an
   earlier version used `kitty` before it was clear Ptyxis was sitting right there unused).
 - **Strong candidates**: Bazaar (Flatpak app store), a handful of broadly-popular CLI tools
-  (`ripgrep`/`fzf`/`bat`/`eza`/`fastfetch`/`btop`/`git-core`/`wl-clipboard`), Flathub remote,
-  distrobox.
+  (`ripgrep`/`fzf`/`bat`/`eza`/`fastfetch`/`btop`/`git-core`/`wl-clipboard`/`chezmoi`),
+  Flathub remote, distrobox.
 - **Explicitly excluded**: `fish` as default shell, `starship`/`yazi`/Nerd Font (all three
   need Terra — the first third-party repo Roshar would otherwise avoid), Tailscale — each a
   real product/opinion choice, not a near-universal want the way an app store is. **Chromium**

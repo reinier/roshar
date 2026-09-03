@@ -41,7 +41,8 @@ printing, firmware updates, keyring):
 - **App store** — [Bazaar](https://github.com/kolunmi/Bazaar), a friendlier Flatpak-focused
   alternative to GNOME Software. Installs itself in the background the first time you log in
   with a network connection.
-- **CLI tools** — ripgrep, fzf, bat, eza, fastfetch, btop, git; distrobox for ad-hoc tooling.
+- **CLI tools** — ripgrep, fzf, bat, eza, fastfetch, btop, git, chezmoi; distrobox for
+  ad-hoc tooling.
 - **Flathub** — pre-added as a remote, ready for `flatpak install`.
 
 ## Updating

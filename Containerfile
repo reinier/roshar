@@ -99,9 +99,11 @@ RUN chmod 0755 /usr/libexec/roshar-seed-niri-config; \
 
 # --- A handful of broadly-popular CLI tools ---
 # Cherry-picked from Azir's fuller CLI toolkit: the subset that isn't tied to a personal
-# shell/prompt/editor choice (fish, chezmoi, xdg-terminal-exec, jq, zip, fuse-sshfs stay
-# Azir-only). wl-clipboard: general Wayland clipboard utility scripts commonly assume exists.
-RUN dnf5 -y install ripgrep fzf bat eza fastfetch btop git-core wl-clipboard \
+# shell/prompt/editor choice (fish, xdg-terminal-exec, jq, zip, fuse-sshfs stay Azir-only).
+# wl-clipboard: general Wayland clipboard utility scripts commonly assume exists. chezmoi:
+# Fedora-native (no Terra needed, unlike Azir's own reason for wanting it -- bootstrapping
+# personal dotfiles), and a fitting tool for a "bring your own config" image specifically.
+RUN dnf5 -y install ripgrep fzf bat eza fastfetch btop git-core wl-clipboard chezmoi \
  && dnf5 clean all
 
 # --- Flathub remote ---
@@ -170,7 +172,7 @@ RUN set -e; \
 
 # Guard for the whole app layer.
 RUN set -e; \
-    rpm -q ripgrep fzf bat eza fastfetch btop git-core wl-clipboard distrobox >/dev/null; \
+    rpm -q ripgrep fzf bat eza fastfetch btop git-core wl-clipboard chezmoi distrobox >/dev/null; \
     test -s /etc/flatpak/remotes.d/flathub.flatpakrepo || { echo "ERROR: Flathub remote missing" >&2; exit 1; }; \
     echo "apps OK: CLI tools present, Firefox is the browser (Silverblue default, untouched), Bazaar installs at first login (see above)"
 

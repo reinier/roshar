@@ -30,7 +30,8 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
 
 ## B. Zero-dotfiles claim (the actual point of Roshar)
 
-- [ ] On a machine with **no chezmoi, no `dotfiles-azir`, no manual steps at all** — the
+- [ ] On a machine with **no dotfiles applied (chezmoi's binary is present, but pointed at
+      nothing), no `dotfiles-azir`, no manual steps at all** — the
       niri+DMS session genuinely works after nothing but logging in. This is the test that
       actually validates "usable by a wider group of users," not just "boots."
 
@@ -44,7 +45,8 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
       non-empty. Confirm `flatpak list --user` shows it after a login or two (needs
       network) and that it actually launches.
 - [ ] `flatpak remotes` shows Flathub.
-- [ ] `ripgrep`, `fzf`, `bat`, `eza`, `fastfetch`, `btop`, `git` all present on `$PATH`.
+- [ ] `ripgrep`, `fzf`, `bat`, `eza`, `fastfetch`, `btop`, `git`, `chezmoi` all present on
+      `$PATH`.
 - [ ] `distrobox create` works.
 
 ## D. Silverblue plumbing (should be untouched)

@@ -23,12 +23,16 @@ are broadly wanted regardless of personal taste, alongside the bare session:
   `dms doctor`'s I2C/DDC brightness check — dead without it). Terminal: Ptyxis, GNOME's own
   (already in the base, not installed separately — see `0001`'s 2026-09-03 update; an
   earlier version used `kitty` before it was clear Ptyxis was sitting right there unused).
-- **Strong candidates**: Chromium + full codecs, Bazaar (Flatpak app store), a handful of
-  broadly-popular CLI tools (`ripgrep`/`fzf`/`bat`/`eza`/`fastfetch`/`btop`/`git-core`/
-  `wl-clipboard`), Flathub remote, distrobox.
+- **Strong candidates**: Bazaar (Flatpak app store), a handful of broadly-popular CLI tools
+  (`ripgrep`/`fzf`/`bat`/`eza`/`fastfetch`/`btop`/`git-core`/`wl-clipboard`), Flathub remote,
+  distrobox.
 - **Explicitly excluded**: `fish` as default shell, `starship`/`yazi`/Nerd Font (all three
   need Terra — the first third-party repo Roshar would otherwise avoid), Tailscale — each a
-  real product/opinion choice, not a near-universal want the way a browser or app store is.
+  real product/opinion choice, not a near-universal want the way an app store is. **Chromium**
+  too, as of 2026-09-03 — Firefox is already Silverblue's own default browser, so a second
+  one wasn't needed to hit "a working browser exists," only to hit a specific personal
+  preference (Azir's own). Dropping it also drops the `rpmfusion-free` repo entirely, since
+  nothing else in Roshar needed it — `avengemedia` is now the only third-party repo left.
 
 ## Why this isn't extracted from existing precedent
 

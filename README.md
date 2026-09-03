@@ -38,7 +38,7 @@ printing, firmware updates, keyring):
 
 - **A second desktop** — niri + DankMaterialShell, with GNOME's own Ptyxis terminal and
   xwayland-satellite for X11 apps.
-- **Browser** — Chromium with full media codecs (Firefox stays too).
+- **Browser** — Firefox, Silverblue's own default, untouched.
 - **App store** — [Bazaar](https://github.com/kolunmi/Bazaar), a friendlier Flatpak-focused
   alternative to GNOME Software. Installs itself in the background the first time you log in
   with a network connection.

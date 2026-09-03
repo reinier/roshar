@@ -36,7 +36,7 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
 
 ## C. Apps
 
-- [ ] Chromium plays H.264 (a known-codec-gated video site, not just that it launches).
+- [ ] Firefox (Silverblue's default) launches fine, untouched.
 - [ ] **Bazaar — test on a machine that's already had a Flatpak installed before switching
       to Roshar, not a pristine install.** This is the exact case that broke the original
       build-time approach (see `0002`'s history) — now installed at login via `flatpak

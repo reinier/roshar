@@ -97,14 +97,6 @@ RUN chmod 0755 /usr/libexec/roshar-seed-niri-config; \
       || { echo "ERROR: config-seed autostart entry not scoped to the niri session" >&2; exit 1; }; \
     echo "default niri+DMS config baked + auto-seed autostart entry in place"
 
-# --- Native Chromium + free codecs ---
-# A working-out-of-the-box browser is close to a universal want; Silverblue's stock Firefox
-# lacks H.264/AAC without user action. Firefox is left in place (additive, not a swap).
-RUN dnf5 -y install "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
- && dnf5 -y install chromium libavcodec-freeworld \
- && rm -f /etc/yum.repos.d/rpmfusion-*.repo \
- && dnf5 clean all
-
 # --- A handful of broadly-popular CLI tools ---
 # Cherry-picked from Azir's fuller CLI toolkit: the subset that isn't tied to a personal
 # shell/prompt/editor choice (fish, chezmoi, xdg-terminal-exec, jq, zip, fuse-sshfs stay
@@ -178,10 +170,9 @@ RUN set -e; \
 
 # Guard for the whole app layer.
 RUN set -e; \
-    rpm -q chromium libavcodec-freeworld ripgrep fzf bat eza fastfetch btop \
-           git-core wl-clipboard distrobox >/dev/null; \
+    rpm -q ripgrep fzf bat eza fastfetch btop git-core wl-clipboard distrobox >/dev/null; \
     test -s /etc/flatpak/remotes.d/flathub.flatpakrepo || { echo "ERROR: Flathub remote missing" >&2; exit 1; }; \
-    echo "apps OK: chromium $(rpm -q --qf '%{VERSION}' chromium), CLI tools present (Bazaar installs at first login, see above)"
+    echo "apps OK: CLI tools present, Firefox is the browser (Silverblue default, untouched), Bazaar installs at first login (see above)"
 
 # --- Update policy: manual only ---
 # Two manual streams (bootc + flatpak); nothing updates unattended. Mask both OS auto-update

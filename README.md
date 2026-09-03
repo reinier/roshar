@@ -1,6 +1,6 @@
 # Roshar
 
-Roshar is a **vanilla** Fedora **Silverblue**-based atomic desktop. It keeps the full GNOME
+Roshar is a **vanilla** Fedora **[Silverblue](https://fedoraproject.org/atomic-desktops/silverblue/)**-based atomic desktop. It keeps the full GNOME
 desktop and adds **[niri](https://github.com/YaLTeR/niri)** — a scrollable-tiling Wayland
 compositor — driven by **[DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell)**
 (bar, launcher, notifications, lock) as an alternative session, picked at the login screen.
@@ -10,8 +10,8 @@ breaks, `bootc rollback` returns to the previous one in a single step. Every mac
 exact same thing.
 
 **What "vanilla" means:** just niri + DMS + GNOME, plus a small tier of things almost anyone
-would want — a real browser, a friendlier app store, a handful of popular CLI tools. No
-password manager, no VPN client, no personal keyboard remaps, no opinionated dotfiles.
+would want — a friendlier app store, a handful of popular CLI tools. No password manager, no
+VPN client, no personal keyboard remaps, no opinionated dotfiles.
 
 ## Install
 
@@ -38,7 +38,6 @@ printing, firmware updates, keyring):
 
 - **A second desktop** — niri + DankMaterialShell, with GNOME's own Ptyxis terminal and
   xwayland-satellite for X11 apps.
-- **Browser** — Firefox, Silverblue's own default, untouched.
 - **App store** — [Bazaar](https://github.com/kolunmi/Bazaar), a friendlier Flatpak-focused
   alternative to GNOME Software. Installs itself in the background the first time you log in
   with a network connection.

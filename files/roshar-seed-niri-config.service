@@ -1,0 +1,25 @@
+[Unit]
+Description=Seed ~/.config/niri with Roshar's default niri+DMS config, before niri starts
+# Must finish before niri.service's `niri --session` ever runs. Two things
+# both have to be true for that to matter, and both are true here:
+#   1. niri has NO fallback for a missing config the way DMS does — if
+#      config.kdl is missing at startup, niri writes out ITS OWN embedded
+#      stock default (documented niri behavior) and uses that instead. That
+#      default has no `spawn-at-startup "dms" "run"` line at all, so DMS
+#      never starts.
+#   2. Once that stock config.kdl exists, this repo's seed script's own
+#      idempotency check ("skip if config.kdl already exists") means it can
+#      never self-heal on a later login either — permanently stuck, not just
+#      wrong on first boot.
+# The xdg-desktop-autostart .desktop version of this same script (still
+# shipped, harmless no-op once this has run) fires too late to prevent
+# either of those: niri.service is explicitly ordered
+# Wants=/Before=xdg-desktop-autostart.target, i.e. niri (and its own stock
+# config write, if it gets there first) always starts before autostart
+# entries do. This unit is what actually wins the race.
+Before=niri.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/roshar-seed-niri-config
+RemainAfterExit=yes

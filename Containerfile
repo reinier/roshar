@@ -79,12 +79,25 @@ RUN set -e; \
 # DMS has no built-in fallback the way some shells do — without a config it simply never
 # spawns. /etc/skel doesn't help here: everyone rebasing onto Roshar already has an existing
 # user account from before the rebase (skel only seeds NEW accounts). Instead: the config is
-# baked to a fixed path, and an xdg-desktop-autostart entry (niri's own vendored config notes
-# it supports this) copies it into ~/.config/niri on first Niri login, idempotently — gets
-# out of the way immediately if the user already has their own config.kdl.
+# baked to a fixed path and seeded into ~/.config/niri on first Niri login, idempotently —
+# gets out of the way immediately if the user already has their own config.kdl.
+#
+# The seeding itself needs a systemd --user unit ordered BEFORE niri.service, not just the
+# xdg-desktop-autostart entry it might look like it only needs (confirmed the hard way on real
+# hardware: a clean Silverblue install + rebase came up with bare niri, no DMS at all). niri
+# has no fallback for a missing config the way DMS does — if config.kdl doesn't exist when
+# niri starts, niri writes out its OWN embedded stock default and uses that (documented niri
+# behavior), and that default has no `dms run` spawn line. Once that stock file exists, the
+# seed script's own idempotency check ("skip if config.kdl already exists") means it can never
+# self-heal on a later login either. And niri.service's own unit file is explicitly ordered
+# Wants=/Before=xdg-desktop-autostart.target — i.e. niri (and its own stock-config write, if
+# it wins the race) always starts before ANY xdg-autostart entry gets a chance to run, seed
+# script included. A drop-in on niri.service forces the seed to run to completion first.
 COPY files/skel-niri/ /usr/share/roshar/niri-default-config/
 COPY files/roshar-seed-niri-config /usr/libexec/roshar-seed-niri-config
 COPY files/roshar-seed-niri-config.desktop /etc/xdg/autostart/roshar-seed-niri-config.desktop
+COPY files/roshar-seed-niri-config.service /usr/lib/systemd/user/roshar-seed-niri-config.service
+COPY files/niri.service.d-roshar-seed.conf /usr/lib/systemd/user/niri.service.d/10-roshar-seed.conf
 RUN chmod 0755 /usr/libexec/roshar-seed-niri-config; \
     test -f /usr/share/roshar/niri-default-config/config.kdl \
       || { echo "ERROR: default niri config missing from the image" >&2; exit 1; }; \
@@ -95,7 +108,12 @@ RUN chmod 0755 /usr/libexec/roshar-seed-niri-config; \
       || { echo "ERROR: config-seed script missing or not executable" >&2; exit 1; }; \
     grep -q 'OnlyShowIn=niri;' /etc/xdg/autostart/roshar-seed-niri-config.desktop \
       || { echo "ERROR: config-seed autostart entry not scoped to the niri session" >&2; exit 1; }; \
-    echo "default niri+DMS config baked + auto-seed autostart entry in place"
+    grep -q '^Before=niri\.service$' /usr/lib/systemd/user/roshar-seed-niri-config.service \
+      || { echo "ERROR: seed systemd unit isn't ordered before niri.service" >&2; exit 1; }; \
+    grep -q '^Requires=roshar-seed-niri-config\.service$' \
+         /usr/lib/systemd/user/niri.service.d/10-roshar-seed.conf \
+      || { echo "ERROR: niri.service drop-in doesn't require the seed unit" >&2; exit 1; }; \
+    echo "default niri+DMS config baked + seed unit ordered before niri.service"
 
 # --- A handful of broadly-popular CLI tools ---
 # Cherry-picked from Azir's fuller CLI toolkit: the subset that isn't tied to a personal

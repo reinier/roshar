@@ -37,6 +37,27 @@ a stock Fedora ISO, get a user account there, **then** `bootc switch`" — the a
 exists before Roshar's image ever lands, so `/etc/skel` would never be consulted. Caught
 during planning, before implementing it the wrong way.
 
+## Update (2026-09-05): the sequencing wrinkle below was a real bug, now fixed
+
+Confirmed on real hardware — a clean Silverblue install + `bootc switch` to Roshar came up
+with bare niri and no DMS at all, permanently. Root cause, worse than the "hedged" version
+below: niri has no fallback for a missing config the way DMS does — if `config.kdl` doesn't
+exist when niri starts, niri writes out its *own* embedded stock default and uses that
+(documented niri behavior), and that default has no `dms run` spawn line. Once that stock
+file exists, the seed script's own idempotency check ("skip if config.kdl already exists")
+means it can never self-heal on a later login either. And niri.service's own unit file is
+ordered `Wants=`/`Before=xdg-desktop-autostart.target` — niri (and its own stock-config
+write, if it wins the race) always starts before the seed script's xdg-autostart entry gets a
+chance to run at all.
+
+Fixed with a systemd `--user` unit (`roshar-seed-niri-config.service`, `Before=niri.service`)
+plus a drop-in on niri's own packaged `niri.service` (`Requires=`/`After=` the seed unit) —
+this actually wins the race, seeding the real config before `niri --session` ever runs. The
+xdg-desktop-autostart entry stays too, now genuinely just a harmless no-op fallback (its
+exists-check trips immediately since the systemd unit has already done the real work).
+README's "log out and back in once if it comes up bare" hedge is removed — first login should
+now come up fully configured, no workaround needed. `0005`'s checklist updated to match.
+
 ## What ships instead: an xdg-desktop-autostart entry, auto-seeding on first login
 
 Originally shipped as a documented manual copy step (simple, honest about the `/etc/skel`
@@ -53,13 +74,12 @@ already notes it "supports xdg-desktop-autostart", which is exactly the hook nee
 - Build-time guard confirms the script is present + executable and the `.desktop` entry is
   correctly scoped to niri.
 
-**One real sequencing wrinkle, not fully resolved**: on the very first login, niri starts
-*before* any config exists at all (built-in defaults, no bar) — the autostart entry then
-copies the config in during that same session. Whether niri hot-reloads a `config.kdl` that
-didn't exist when the session started, or needs a fresh login to pick it up, is unconfirmed
-from here — README hedges with "log out and back in once if [it comes up bare]" rather than
-promising it working with zero further action. Worth nailing down on real hardware (see
-`0005`) and tightening the README's wording once known either way.
+**One real sequencing wrinkle — was not fully resolved here, confirmed as a real bug on real
+hardware, now fixed.** See the Update section above: this xdg-desktop-autostart entry alone
+fires too late, after niri.service has already started (and, on a truly fresh account,
+already written its own stock config with no DMS spawn) — not a hot-reload timing question,
+a permanent lock-out. A systemd unit ordered before `niri.service` is what actually closes
+the race; this autostart entry remains only as a harmless fallback.
 
 The manual copy command is kept in the README too, as a documented fallback for
 troubleshooting — not removed, just no longer the primary path.

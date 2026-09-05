@@ -15,14 +15,14 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
 
 - [ ] GDM offers **GNOME** and **Niri**.
 - [ ] **GNOME** session logs in and works normally (additive build didn't disturb it).
-- [ ] **Niri** session logs in for the very first time (no `~/.config/niri/` yet). Note
-      whether DMS is already up in *this* session or it comes up bare — either is
-      acceptable, but which one actually happens needs recording (see `0004`'s open
-      question about hot-reload timing).
+- [ ] **Niri** session logs in for the very first time (no `~/.config/niri/` yet). DMS bar +
+      launcher should be up in *this* session, not just after a second login — a bare first
+      login means the `roshar-seed-niri-config.service` fix in `0004` regressed and niri won
+      the race again.
 - [ ] `~/.config/niri/config.kdl` exists after that first login, without you touching
-      anything — confirms the autostart entry actually ran.
-- [ ] Log out, back into Niri (if the first login was bare): DMS bar + launcher come up.
-      `Mod+T` opens Ptyxis. `Mod+Space` opens the DMS launcher.
+      anything — confirms the seed unit actually ran before niri did.
+- [ ] `Mod+T` opens Ptyxis. `Mod+Space` opens the DMS launcher. (Already true from the very
+      first login — no log-out/back-in workaround should be needed anymore.)
 - [ ] **Bring-your-own-config case**: on a *different* account (or after removing the
       auto-seeded config and dropping in your own `config.kdl` first), log into Niri and
       confirm the autostart entry did nothing — no overwrite, no error.
@@ -62,4 +62,4 @@ sudo bootc switch ghcr.io/reinier/roshar:latest && sudo systemctl reboot
 
 | Date | Check | Result | Follow-up |
 |---|---|---|---|
-| | | | |
+| 2026-09-05 | A: first Niri login (pre-fix build) | Niri came up bare, no DMS, no bar — permanently, not just on first login | Root-caused + fixed in `0004`: seed script's xdg-autostart entry ran after niri.service (which had already written its own stock config); replaced with a systemd unit ordered before niri.service. Re-test needed on a build with the fix. |

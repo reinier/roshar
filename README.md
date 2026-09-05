@@ -26,10 +26,9 @@ sudo systemctl reboot
 At the GDM login screen, use the session picker (gear icon) to choose **GNOME** or **Niri**.
 
 **Niri sets itself up on first login** — a working config is copied into `~/.config/niri/`
-for you automatically (nothing to run yourself), and steps aside entirely if you already have
-one there. The very first login may come up bare while that happens; log out and back in once
-if so, and the bar/launcher (`Mod+Space`) should be up. Personal tweaks go in
-`~/.config/niri/local.kdl` (optional).
+before niri itself even starts (nothing to run yourself), and steps aside entirely if you
+already have one there. The bar and launcher (`Mod+Space`) should be up from the very first
+login. Personal tweaks go in `~/.config/niri/local.kdl` (optional).
 
 ## What you get
 

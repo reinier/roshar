@@ -274,7 +274,7 @@ include "dms/binds.kdl"
 include "dms/startup.kdl"
 include optional=true "dms/outputs.kdl"
 include optional=true "dms/cursor.kdl"
-include optional=true "dms/windowrules.kdl"
+include optional=true "dms/input.kdl"
 
 // === Personal overrides — LAST so they override the defaults above ============
 // Optional: create ~/.config/niri/local.kdl yourself for your own keybinds,

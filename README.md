@@ -30,6 +30,9 @@ before niri itself even starts (nothing to run yourself), and steps aside entire
 already have one there. The bar and launcher (`Mod+Space`) should be up from the very first
 login. Personal tweaks go in `~/.config/niri/local.kdl` (optional).
 
+> **Visual keymap.** [`notes/niri-keymap/`](notes/niri-keymap/) has a rendered diagram of
+> every default `Mod+`-prefixed binding.
+
 ## What you get
 
 On top of everything Silverblue already provides (GNOME, GDM, GNOME Software, PipeWire,

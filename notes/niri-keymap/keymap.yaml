@@ -1,0 +1,187 @@
+layout:
+  ortho_layout: {split: false, rows: 3, columns: 10}
+layers:
+  Mod:
+    # Row 1: Q W E R T Y U I O P (true physical QWERTY — no personal remap here)
+    - {tl: "Q", t: "Close\nWindow"}
+    - {tl: "W", t: "Tabbed\nDisplay"}
+    - {tl: "E", t: ""}
+    - {tl: "R", t: "Column\nWidth"}
+    - {tl: "T", t: "Open\nTerminal"}
+    - {tl: "Y", t: "Browse\nWallpapers"}
+    - {tl: "U", t: "Focus\nWS Dn"}
+    - {tl: "I", t: "Focus\nWS Up"}
+    - {tl: "O", t: "Toggle\nOverview"}
+    - {tl: "P", t: "Cycle Display\nProfile"}
+    # Row 2: A S D F G H J K L _  (last slot blank — where ; would physically be)
+    - {tl: "A", t: ""}
+    - {tl: "S", t: ""}
+    - {tl: "D", t: ""}
+    - {tl: "F", t: "Maximize\nColumn"}
+    - {tl: "G", t: ""}
+    - {tl: "H", t: "Focus\nCol L"}
+    - {tl: "J", t: "Focus\nWin Dn"}
+    - {tl: "K", t: "Focus\nWin Up"}
+    - {tl: "L", t: "Focus\nCol R"}
+    - ""
+    # Row 3: Z X C V B N M , . /
+    - {tl: "Z", t: ""}
+    - {tl: "X", t: "Power\nMenu"}
+    - {tl: "C", t: "Center\nColumn"}
+    - {tl: "V", t: "Clipboard"}
+    - {tl: "B", t: ""}
+    - {tl: "N", t: "Notif.\nCenter"}
+    - {tl: "M", t: "Task\nManager"}
+    - {tl: ",", t: "Settings"}
+    - {tl: ".", t: "Expel\nWindow"}
+    - {tl: "/", t: ""}
+
+  Mod + Shift:
+    # Row 1: Q W E R T Y U I O P
+    - {tl: "Q", t: ""}
+    - {tl: "W", t: "Create\nWindow Rule"}
+    - {tl: "E", t: "Quit"}
+    - {tl: "R", t: "Window\nHeight"}
+    - {tl: "T", t: "Toggle\nFloating"}
+    - {tl: "Y", t: ""}
+    - {tl: "U", t: "Move\nWS Dn"}
+    - {tl: "I", t: "Move\nWS Up"}
+    - {tl: "O", t: ""}
+    - {tl: "P", t: "Power Off\nMonitors"}
+    # Row 2: A S D F G H J K L _
+    - {tl: "A", t: ""}
+    - {tl: "S", t: ""}
+    - {tl: "D", t: ""}
+    - {tl: "F", t: "Fullscreen"}
+    - {tl: "G", t: ""}
+    - {tl: "H", t: "Move\nCol L"}
+    - {tl: "J", t: "Move\nWin Dn"}
+    - {tl: "K", t: "Move\nWin Up"}
+    - {tl: "L", t: "Move\nCol R"}
+    - ""
+    # Row 3: Z X C V B N M , . /
+    - {tl: "Z", t: ""}
+    - {tl: "X", t: ""}
+    - {tl: "C", t: ""}
+    - {tl: "V", t: "Float ⇄\nTile"}
+    - {tl: "B", t: ""}
+    - {tl: "N", t: "Notepad"}
+    - {tl: "M", t: ""}
+    - {tl: ",", t: ""}
+    - {tl: ".", t: ""}
+    - {tl: "/", t: "Hotkey\nOverlay"}
+
+  Mod + Ctrl:
+    # Row 1: Q W E R T Y U I O P
+    - {tl: "Q", t: ""}
+    - {tl: "W", t: ""}
+    - {tl: "E", t: ""}
+    - {tl: "R", t: "Reset Win\nHeight"}
+    - {tl: "T", t: ""}
+    - {tl: "Y", t: ""}
+    - {tl: "U", t: "Move→WS\nDn"}
+    - {tl: "I", t: "Move→WS\nUp"}
+    - {tl: "O", t: ""}
+    - {tl: "P", t: ""}
+    # Row 2: A S D F G H J K L _
+    - {tl: "A", t: ""}
+    - {tl: "S", t: ""}
+    - {tl: "D", t: ""}
+    - {tl: "F", t: "Expand\nColumn"}
+    - {tl: "G", t: ""}
+    - {tl: "H", t: "Focus\nMonitor L"}
+    - {tl: "J", t: "Focus\nMonitor Dn"}
+    - {tl: "K", t: "Focus\nMonitor Up"}
+    - {tl: "L", t: "Focus\nMonitor R"}
+    - ""
+    # Row 3: Z X C V B N M , . /
+    - {tl: "Z", t: ""}
+    - {tl: "X", t: ""}
+    - {tl: "C", t: "Center Visible\nColumns"}
+    - {tl: "V", t: ""}
+    - {tl: "B", t: ""}
+    - {tl: "N", t: ""}
+    - {tl: "M", t: ""}
+    - {tl: ",", t: ""}
+    - {tl: ".", t: ""}
+    - {tl: "/", t: ""}
+
+  Mod + Alt:
+    # Row 1: Q W E R T Y U I O P
+    - {tl: "Q", t: ""}
+    - {tl: "W", t: ""}
+    - {tl: "E", t: ""}
+    - {tl: "R", t: ""}
+    - {tl: "T", t: ""}
+    - {tl: "Y", t: ""}
+    - {tl: "U", t: ""}
+    - {tl: "I", t: ""}
+    - {tl: "O", t: ""}
+    - {tl: "P", t: ""}
+    # Row 2: A S D F G H J K L _
+    - {tl: "A", t: ""}
+    - {tl: "S", t: ""}
+    - {tl: "D", t: ""}
+    - {tl: "F", t: ""}
+    - {tl: "G", t: ""}
+    - {tl: "H", t: ""}
+    - {tl: "J", t: ""}
+    - {tl: "K", t: ""}
+    - {tl: "L", t: "Lock\nScreen"}
+    - ""
+    # Row 3: Z X C V B N M , . /
+    - {tl: "Z", t: ""}
+    - {tl: "X", t: ""}
+    - {tl: "C", t: ""}
+    - {tl: "V", t: ""}
+    - {tl: "B", t: ""}
+    - {tl: "N", t: ""}
+    - {tl: "M", t: ""}
+    - {tl: ",", t: ""}
+    - {tl: ".", t: ""}
+    - {tl: "/", t: ""}
+
+  Mod + Shift + Ctrl:
+    # Row 1: Q W E R T Y U I O P
+    - {tl: "Q", t: ""}
+    - {tl: "W", t: ""}
+    - {tl: "E", t: ""}
+    - {tl: "R", t: ""}
+    - {tl: "T", t: ""}
+    - {tl: "Y", t: ""}
+    - {tl: "U", t: ""}
+    - {tl: "I", t: ""}
+    - {tl: "O", t: ""}
+    - {tl: "P", t: ""}
+    # Row 2: A S D F G H J K L _
+    - {tl: "A", t: ""}
+    - {tl: "S", t: ""}
+    - {tl: "D", t: ""}
+    - {tl: "F", t: ""}
+    - {tl: "G", t: ""}
+    - {tl: "H", t: "Move→\nMon L"}
+    - {tl: "J", t: "Move→\nMon Dn"}
+    - {tl: "K", t: "Move→\nMon Up"}
+    - {tl: "L", t: "Move→\nMon R"}
+    - ""
+    # Row 3: Z X C V B N M , . /
+    - {tl: "Z", t: ""}
+    - {tl: "X", t: ""}
+    - {tl: "C", t: ""}
+    - {tl: "V", t: ""}
+    - {tl: "B", t: ""}
+    - {tl: "N", t: ""}
+    - {tl: "M", t: ""}
+    - {tl: ",", t: ""}
+    - {tl: ".", t: ""}
+    - {tl: "/", t: ""}
+
+draw_config:
+  key_w: 74
+  key_h: 74
+  dark_mode: auto
+  footer_text: "Roshar / niri — Mod+letter/,/./ default keybindings, from files/skel-niri/dms/binds.kdl (DankMaterialShell's vendored defaults). Blank = unbound. Mod = Super on a native niri session (which is how Roshar runs it), so Super+X here is the same key as every other Mod-prefixed bind. Personal tweaks go in ~/.config/niri/local.kdl and aren't shown here — this is only the out-of-the-box default."
+  svg_extra_style: |
+    text.label { font-size: 15px !important; }
+    text.tl { font-size: 16px !important; font-weight: 700 !important; }
+    text.footer { fill: #6b7280 !important; }

@@ -28,6 +28,8 @@ deliberately deferred — see `azir/backlog/README.md`'s forward-looking note.
 4. [0004-default-config.md](0004-default-config.md) — the baked niri+DMS config.
 5. [0005-first-boot-checklist.md](0005-first-boot-checklist.md) — living hardware/boot
    verification.
+6. [0006-local-build.md](0006-local-build.md) — open. Build Roshar locally as the base for
+   a local Azir build (self-build fallback); full workflow in `azir` `0007`.
 
 ## Deliberately NOT here
 

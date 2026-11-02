@@ -2,7 +2,7 @@
 
 Roshar is a **vanilla** Fedora **[Silverblue](https://fedoraproject.org/atomic-desktops/silverblue/)**-based atomic desktop. It keeps the full GNOME
 desktop and adds **[niri](https://github.com/YaLTeR/niri)** — a scrollable-tiling Wayland
-compositor — driven by **[DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell)**
+compositor — driven by **[Dux Shell](https://github.com/duxlabs-dev/dux-shell)** (formerly DankMaterialShell, still `dms`)
 (bar, launcher, notifications, lock) as an alternative session, picked at the login screen.
 
 **What "atomic" means:** the whole OS is a single image. Updates swap in a new image; if one
@@ -38,7 +38,7 @@ login. Personal tweaks go in `~/.config/niri/local.kdl` (optional).
 On top of everything Silverblue already provides (GNOME, GDM, GNOME Software, PipeWire,
 printing, firmware updates, keyring):
 
-- **A second desktop** — niri + DankMaterialShell, with GNOME's own Ptyxis terminal and
+- **A second desktop** — niri + Dux Shell, with GNOME's own Ptyxis terminal and
   xwayland-satellite for X11 apps.
 - **App store** — [Bazaar](https://github.com/kolunmi/Bazaar), a friendlier Flatpak-focused
   alternative to GNOME Software. Installs itself in the background the first time you log in
@@ -66,4 +66,4 @@ Roshar provides the desktop and packages, not a personal setup. Bring your own
 ## Notes
 
 A personal project, not an official Fedora product — no support, use at your own risk. niri
-and DankMaterialShell are independent upstream projects.
+and Dux Shell are independent upstream projects.

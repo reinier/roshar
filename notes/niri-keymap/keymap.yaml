@@ -14,9 +14,9 @@ layers:
     - {tl: "O", t: "Toggle\nOverview"}
     - {tl: "P", t: "Cycle Display\nProfile"}
     # Row 2: A S D F G H J K L _  (last slot blank — where ; would physically be)
-    - {tl: "A", t: ""}
+    - {tl: "A", t: "Control\nCenter"}
     - {tl: "S", t: ""}
-    - {tl: "D", t: ""}
+    - {tl: "D", t: "Dash"}
     - {tl: "F", t: "Maximize\nColumn"}
     - {tl: "G", t: ""}
     - {tl: "H", t: "Focus\nCol L"}
@@ -30,8 +30,8 @@ layers:
     - {tl: "C", t: "Center\nColumn"}
     - {tl: "V", t: "Clipboard"}
     - {tl: "B", t: ""}
-    - {tl: "N", t: "Notif.\nCenter"}
-    - {tl: "M", t: "Task\nManager"}
+    - {tl: "N", t: "Notepad"}
+    - {tl: "M", t: "Media"}
     - {tl: ",", t: "Settings"}
     - {tl: ".", t: "Expel\nWindow"}
     - {tl: "/", t: ""}
@@ -62,10 +62,10 @@ layers:
     # Row 3: Z X C V B N M , . /
     - {tl: "Z", t: ""}
     - {tl: "X", t: ""}
-    - {tl: "C", t: ""}
+    - {tl: "C", t: "Color\nPicker"}
     - {tl: "V", t: "Float ⇄\nTile"}
     - {tl: "B", t: ""}
-    - {tl: "N", t: "Notepad"}
+    - {tl: "N", t: "Notepad\nExpand"}
     - {tl: "M", t: ""}
     - {tl: ",", t: ""}
     - {tl: ".", t: ""}
@@ -100,7 +100,7 @@ layers:
     - {tl: "C", t: "Center Visible\nColumns"}
     - {tl: "V", t: ""}
     - {tl: "B", t: ""}
-    - {tl: "N", t: ""}
+    - {tl: "N", t: "Notif.\nCenter"}
     - {tl: "M", t: ""}
     - {tl: ",", t: ""}
     - {tl: ".", t: ""}
@@ -111,11 +111,11 @@ layers:
     - {tl: "Q", t: ""}
     - {tl: "W", t: ""}
     - {tl: "E", t: ""}
-    - {tl: "R", t: ""}
+    - {tl: "R", t: "Rename\nWorkspace"}
     - {tl: "T", t: ""}
     - {tl: "Y", t: ""}
     - {tl: "U", t: ""}
-    - {tl: "I", t: ""}
+    - {tl: "I", t: "Idle\nInhibit"}
     - {tl: "O", t: ""}
     - {tl: "P", t: ""}
     # Row 2: A S D F G H J K L _
@@ -135,7 +135,7 @@ layers:
     - {tl: "C", t: ""}
     - {tl: "V", t: ""}
     - {tl: "B", t: ""}
-    - {tl: "N", t: ""}
+    - {tl: "N", t: "Night\nMode"}
     - {tl: "M", t: ""}
     - {tl: ",", t: ""}
     - {tl: ".", t: ""}
@@ -180,7 +180,7 @@ draw_config:
   key_w: 74
   key_h: 74
   dark_mode: auto
-  footer_text: "Roshar / niri — Mod+letter/,/./ default keybindings, from files/skel-niri/dms/binds.kdl (DankMaterialShell's vendored defaults). Blank = unbound. Mod = Super on a native niri session (which is how Roshar runs it), so Super+X here is the same key as every other Mod-prefixed bind. Personal tweaks go in ~/.config/niri/local.kdl and aren't shown here — this is only the out-of-the-box default."
+  footer_text: "Roshar / niri — Mod+letter/,/./ default keybindings, from files/skel-niri/dms/binds.kdl (Dux Shell 2.0's vendored defaults). Blank = unbound. Mod = Super on a native niri session (which is how Roshar runs it). Personal tweaks go in ~/.config/niri/local.kdl and aren't shown here — this is only the out-of-the-box default."
   svg_extra_style: |
     text.label { font-size: 15px !important; }
     text.tl { font-size: 16px !important; font-weight: 700 !important; }

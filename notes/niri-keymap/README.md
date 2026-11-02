@@ -29,16 +29,10 @@ copied byte-identical into `~/.config/niri/` on first login by
 reconcile, and no personal override layer to show — Roshar itself is vanilla by design
 ("bring your own `~/.config/niri/local.kdl`").
 
-`Super+X` (Power Menu) is drawn on the `Mod` layer alongside every other `Mod+<key>` bind,
-even though `binds.kdl` writes it as `Super+X` rather than `Mod+X` like everything else:
-[niri's own docs](https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings) define
-`Mod` as equal to `Super` on a native (TTY) session, which is how Roshar always runs it —
-so the two are the same key here, not a real distinction.
-
 Out of scope for this diagram, deliberately: arrows, `Home`/`End`, `Page_Up`/`Page_Down`,
 number keys, mouse wheel scroll, `Minus`/`Equal`, `BracketLeft`/`BracketRight`,
 function/media keys (`Print`, `XF86Launch1`, `XF86Audio*`, `XF86MonBrightness*`), `Escape`,
-and the handful of non-`Mod` combos (`Ctrl+Alt+Delete`, `Ctrl+Shift+R`, `Alt+Space`, and
+and the handful of non-`Mod` combos (`Ctrl+Alt+Delete`, `Ctrl+Alt+M`, `Alt+Space`, and
 `config.kdl`'s own `recent-windows` block: `Alt+Tab`, `Alt+Shift+Tab`, `Alt+grave`,
 `Alt+Shift+grave`) — read those straight from `files/skel-niri/dms/binds.kdl` and
 `files/skel-niri/config.kdl`.

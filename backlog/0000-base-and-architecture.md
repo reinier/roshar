@@ -32,7 +32,7 @@ are broadly wanted regardless of personal taste, alongside the bare session:
   too, as of 2026-09-03 — Firefox is already Silverblue's own default browser, so a second
   one wasn't needed to hit "a working browser exists," only to hit a specific personal
   preference (Azir's own). Dropping it also drops the `rpmfusion-free` repo entirely, since
-  nothing else in Roshar needed it — `avengemedia` is now the only third-party repo left.
+  nothing else in Roshar needed it — `duxlabs` (Dux Shell, formerly avengemedia) is now the only third-party repo left.
 
 ## Why this isn't extracted from existing precedent
 

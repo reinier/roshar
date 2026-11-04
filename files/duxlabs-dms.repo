@@ -1,0 +1,9 @@
+[copr:copr.fedorainfracloud.org:duxlabs:dms]
+name=Copr repo for dms owned by duxlabs (Dux Shell, stable, tagged releases)
+baseurl=https://download.copr.fedorainfracloud.org/results/duxlabs/dms/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=False
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/duxlabs/dms/pubkey.gpg
+repo_gpgcheck=0
+enabled=1

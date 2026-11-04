@@ -10,7 +10,7 @@ on:
   schedule:
     # Daily 05:00 UTC — staggered after Steen (02:00), Tashikk (03:00), Azir (04:00) so
     # the four don't hit quay/GHCR at once. Picks up Silverblue base + Fedora security
-    # updates + the avengemedia DMS COPR moving.
+    # updates + the duxlabs Dux Shell COPR moving.
     - cron: "0 5 * * *"
   workflow_dispatch:
 

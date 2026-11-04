@@ -1,0 +1,9 @@
+[copr:copr.fedorainfracloud.org:duxlabs:dux-repo]
+name=Copr repo for dux-repo owned by duxlabs (quickshell + Dux Shell runtime; was avengemedia/danklinux)
+baseurl=https://download.copr.fedorainfracloud.org/results/duxlabs/dux-repo/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=False
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/duxlabs/dux-repo/pubkey.gpg
+repo_gpgcheck=0
+enabled=1

@@ -26,16 +26,18 @@ FROM quay.io/fedora-ostree-desktops/silverblue:44
 # invocation (`--new-window` needed — Ptyxis is a single-instance GApplication, so a bare
 # `ptyxis` would just refocus an existing window rather than open a fresh one).
 #
-# DMS + quickshell + dms-cli as a MATCHED PAIR from upstream's *stable* COPRs — Fedora's DMS
+# DMS + quickshell + dms-cli as a MATCHED PAIR from upstream's *stable* COPRs (Dux Labs'
+# duxlabs/dms + duxlabs/dux-repo, which replaced avengemedia/dms + avengemedia/danklinux in
+# the Dux Shell rename; package names dms/dms-cli/quickshell are unchanged) — Fedora's DMS
 # 1.4.4 / quickshell 0.2.1 are too old for DMS 1.5.x. matugen (DMS theming) from Fedora.
 # ddcutil: DMS's own `dms doctor` checks for I2C/DDC support for external-monitor
 # brightness control; without it that DMS feature can never activate for anyone.
-COPY files/avengemedia-dms.repo files/avengemedia-danklinux.repo /etc/yum.repos.d/
+COPY files/duxlabs-dms.repo files/duxlabs-dux-repo.repo /etc/yum.repos.d/
 RUN dnf5 -y install --setopt=install_weak_deps=False \
       niri xwayland-satellite ddcutil \
  && dnf5 -y install dms matugen \
- && rm -f /etc/yum.repos.d/avengemedia-dms.repo \
-          /etc/yum.repos.d/avengemedia-danklinux.repo \
+ && rm -f /etc/yum.repos.d/duxlabs-dms.repo \
+          /etc/yum.repos.d/duxlabs-dux-repo.repo \
  && dnf5 clean all
 
 # Guard: assert quickshell PROVENANCE, not versions. dms's dependency is the unversioned
@@ -52,8 +54,8 @@ RUN set -e; \
     command -v dms  >/dev/null || { echo "ERROR: dms CLI missing" >&2; exit 1; }; \
     qs_repo="$(dnf5 repoquery --installed --qf '%{from_repo}' quickshell | head -1)"; \
     case "$qs_repo" in \
-      *avengemedia*) ;; \
-      *) echo "ERROR: quickshell came from '${qs_repo}', not the avengemedia COPR." >&2; exit 1;; \
+      *duxlabs*) ;; \
+      *) echo "ERROR: quickshell came from '${qs_repo}', not the duxlabs/dux-repo COPR." >&2; exit 1;; \
     esac; \
     echo "desktop core: niri $(rpm -q --qf '%{VERSION}' niri), dms $(rpm -q --qf '%{VERSION}' dms), quickshell $(rpm -q --qf '%{VERSION}' quickshell) [${qs_repo}]"
 
